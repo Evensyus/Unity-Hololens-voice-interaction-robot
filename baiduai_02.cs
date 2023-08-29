@@ -36,13 +36,13 @@ public class baiduai_02 : MonoBehaviour
 
     public static class AccessToken
     {
-        // µ÷ÓÃgetAccessToken()»ñÈ¡µÄ access_token½¨Òé¸ù¾İexpires_in Ê±¼ä ÉèÖÃ»º´æ
-        // ·µ»ØtokenÊ¾Àı
+        // è°ƒç”¨getAccessToken()è·å–çš„ access_tokenå»ºè®®æ ¹æ®expires_in æ—¶é—´ è®¾ç½®ç¼“å­˜
+        // è¿”å›tokenç¤ºä¾‹
         public static String TOKEN = "24.adda70c11b9786206253ddb70affdc46.2592000.1493524354.282335-1234567";
-        // °Ù¶ÈÔÆÖĞ¿ªÍ¨¶ÔÓ¦·şÎñÓ¦ÓÃµÄ API Key ½¨Òé¿ªÍ¨Ó¦ÓÃµÄÊ±ºò¶àÑ¡·şÎñ
-        private static String clientId = "pzGIlbBor7G5B7XGfdfW3q1u";
-        // °Ù¶ÈÔÆÖĞ¿ªÍ¨¶ÔÓ¦·şÎñÓ¦ÓÃµÄ Secret Key
-        private static String clientSecret = "YGBa3dCOBdpScgZdItl5QYGAH4QgRcL9";
+        // ç™¾åº¦äº‘ä¸­å¼€é€šå¯¹åº”æœåŠ¡åº”ç”¨çš„ API Key å»ºè®®å¼€é€šåº”ç”¨çš„æ—¶å€™å¤šé€‰æœåŠ¡
+        private static String clientId = "å¡«å†™ä½ è‡ªå·±çš„APIKey";
+        // ç™¾åº¦äº‘ä¸­å¼€é€šå¯¹åº”æœåŠ¡åº”ç”¨çš„ Secret Key
+        private static String clientSecret = "å¡«å†™ä½ è‡ªå·±çš„Secret Key";
         public static String getAccessToken()
         {
             String authHost = "https://aip.baidubce.com/oauth/2.0/token";
@@ -61,56 +61,56 @@ public class baiduai_02 : MonoBehaviour
     }
     public class Utterance
     {
-        // unit¶Ô»°½Ó¿Ú
+        // unitå¯¹è¯æ¥å£
         public static string unit_utterance()
         {
             JObject jo = (JObject)JsonConvert.DeserializeObject(AccessToken.getAccessToken());
             string token = jo["access_token"].ToString();
             //string message = jo["Message"].ToString();
-            // string token = AccessToken.getAccessToken();//tokenÒÑ¾­»ñÈ¡
+            // string token = AccessToken.getAccessToken();//tokenå·²ç»è·å–
             string host = "https://aip.baidubce.com/rpc/2.0/unit/service/v3/chat?access_token=" + token;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(host);
             request.Method = "post";
             request.ContentType = "application/json";
             request.KeepAlive = true;
-            //¸Ä³É×Ô¼ºµÄ£¡
-            //string wen = "¹ãÖİ½ñÌìÌìÆø";
+            //æ”¹æˆè‡ªå·±çš„ï¼
+            //string wen = "å¹¿å·ä»Šå¤©å¤©æ°”";
             string wen = AskText.text;
-            string str = "{\"version\":\"3.0\",\"service_id\":\"S98384\",\"session_id\":\"\",\"log_id\":\"7758521\",\"request\":{\"terminal_id\":\"88888\",\"query\":\"" + wen + "\"}}"; // json¸ñÊ½  S10000 ĞèÒª×Ô¼ºµÄ£¡
+            string str = "{\"version\":\"3.0\",\"service_id\":\"S98384\",\"session_id\":\"\",\"log_id\":\"7758521\",\"request\":{\"terminal_id\":\"88888\",\"query\":\"" + wen + "\"}}"; // jsonæ ¼å¼  S10000 éœ€è¦è‡ªå·±çš„ï¼
             byte[] buffer = Encoding.UTF8.GetBytes(str);
             request.ContentLength = buffer.Length;
             request.GetRequestStream().Write(buffer, 0, buffer.Length);
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
             string result = reader.ReadToEnd();
-            Console.WriteLine("¶Ô»°½Ó¿Ú·µ»Ø:");
-            // Debug.Log("________json________result______________________"+result);//¿´Ò»ÏÂjson¸ñÊ½
+            Console.WriteLine("å¯¹è¯æ¥å£è¿”å›:");
+            // Debug.Log("________json________result______________________"+result);//çœ‹ä¸€ä¸‹jsonæ ¼å¼
             Console.WriteLine(result);
-            //½âÎöjson
+            //è§£æjson
             /*
-            1.Json×Ö·û´®Ç¶Ì×¸ñÊ½½âÎö
-            string jsonText = "{\"beijing\":{\"zone\":\"º£µí\",\"zone_en\":\"haidian\"}}";
+            1.Jsonå­—ç¬¦ä¸²åµŒå¥—æ ¼å¼è§£æ
+            string jsonText = "{\"beijing\":{\"zone\":\"æµ·æ·€\",\"zone_en\":\"haidian\"}}";
             JObject jo = (JObject)JsonConvert.DeserializeObject(jsonText);
             string zone = jo["beijing"]["zone"].ToString();
             string zone_en = jo["beijing"]["zone_en"].ToString();       
-            2.Json×Ö·û´®Êı×é¸ñÊ½½âÎö
-            string jsonArrayText = "[{'a':'a1','b':'b1'},{'a':'a2','b':'b2'}]"; //"[{'a':'a1','b':'b1'}]¼´Ê¹Ö»ÓĞÒ»¸öÔªËØ£¬Ò²ĞèÒª¼ÓÉÏ[]
-            string jsonArrayText = "[{\"a\":\"a1\",\"b\":\"b1\"},{\"a\":\"a2\",\"b\":\"b2\"}]";  //ÉÏÃæĞ´·¨ºÍ´ËĞ´·¨Ğ§¹ûÒ»Ñù
-            JArray jArray = (JArray)JsonConvert.DeserializeObject(jsonArrayText);//jsonArrayText±ØĞëÊÇ´ø[]Êı×é¸ñÊ½×Ö·û´®
+            2.Jsonå­—ç¬¦ä¸²æ•°ç»„æ ¼å¼è§£æ
+            string jsonArrayText = "[{'a':'a1','b':'b1'},{'a':'a2','b':'b2'}]"; //"[{'a':'a1','b':'b1'}]å³ä½¿åªæœ‰ä¸€ä¸ªå…ƒç´ ï¼Œä¹Ÿéœ€è¦åŠ ä¸Š[]
+            string jsonArrayText = "[{\"a\":\"a1\",\"b\":\"b1\"},{\"a\":\"a2\",\"b\":\"b2\"}]";  //ä¸Šé¢å†™æ³•å’Œæ­¤å†™æ³•æ•ˆæœä¸€æ ·
+            JArray jArray = (JArray)JsonConvert.DeserializeObject(jsonArrayText);//jsonArrayTextå¿…é¡»æ˜¯å¸¦[]æ•°ç»„æ ¼å¼å­—ç¬¦ä¸²
             string str = jArray[0]["a"].ToString();
              */
-            //Json×Ö·û´®Ç¶Ì×¸ñÊ½½âÎö
+            //Jsonå­—ç¬¦ä¸²åµŒå¥—æ ¼å¼è§£æ
             Debug.Log(result);
             JObject jresult = (JObject)JsonConvert.DeserializeObject(result);
             string sjresult = jresult["result"]["responses"].ToString();
             Debug.Log(sjresult);
 
-            //Json×Ö·û´®Êı×é¸ñÊ½½âÎö
+            //Jsonå­—ç¬¦ä¸²æ•°ç»„æ ¼å¼è§£æ
             JArray jArray = (JArray)JsonConvert.DeserializeObject(sjresult);
             string jactions = jArray[0]["actions"].ToString();
             Debug.Log(jactions);
 
-            //Json×Ö·û´®Êı×é¸ñÊ½½âÎö
+            //Jsonå­—ç¬¦ä¸²æ•°ç»„æ ¼å¼è§£æ
             JArray jArray1 = (JArray)JsonConvert.DeserializeObject(jactions);
             string jactions1 = jArray1[0]["say"].ToString();
             Debug.Log(jactions1);
@@ -118,15 +118,15 @@ public class baiduai_02 : MonoBehaviour
             //private Text RobotTalkBalk = GameObject.Find("Lunarcom/Terminal/Output/Out").GetComponent<Text>();
             RobotTalkBalk.text = jactions1;
 
-            //Ó½¶ì£¬ÌÆ£¬Âæ±öÍõ¡£¶ì¶ì¶ì£¬ÇúÏîÏòÌì¸è¡£°×Ã«¸¡ÂÌË®£¬ºìÕÆ²¦Çå²¨¡£
-            ///ÁíÍâÒ»ÖÖ½âÎö·½Ê½£º///
+            //å’é¹…ï¼Œå”ï¼Œéª†å®¾ç‹ã€‚é¹…é¹…é¹…ï¼Œæ›²é¡¹å‘å¤©æ­Œã€‚ç™½æ¯›æµ®ç»¿æ°´ï¼Œçº¢æŒæ‹¨æ¸…æ³¢ã€‚
+            ///å¦å¤–ä¸€ç§è§£ææ–¹å¼ï¼š///
             /*            
                 JObject resultObj = (JObject)JsonConvert.DeserializeObject(result);
                 string actions = resultObj["result"]["responses"].ToString();
 
                 JArray sayObj = (JArray)JsonConvert.DeserializeObject(actions);
                 string responses = sayObj[0].ToString();
-            //Çø±ğ´¦£º
+            //åŒºåˆ«å¤„ï¼š
                 JObject actionsObj = (JObject)JsonConvert.DeserializeObject(responses);
                 string sayobj = actionsObj.GetValue("actions")[0].ToString();
 
