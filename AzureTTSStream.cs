@@ -8,9 +8,9 @@ public class AzureTTSStream : MonoSingleton<AzureTTSStream>
 {
     private AudioSource m_AudioSource;
 
-    private string m_SubscriptionKey = "1c59566d77cd4462a7b3f73f66efd431";
+    private string m_SubscriptionKey = "å¡«å†™ä½ è‡ªå·±çš„Key";
 
-    private string m_Region = "eastus";
+    private string m_Region = "å¡«å†™ä½ è‡ªå·±çš„åœ°åŒº";
 
     private string m_SpeechSynthesisLanguage = "zh-CN";
 
@@ -18,9 +18,9 @@ public class AzureTTSStream : MonoSingleton<AzureTTSStream>
 
     public const int m_SampleRate = 16000;
 
-    public const int m_BufferSize = m_SampleRate * 60; //×î´óÖ§³Ö60sÒôÆµ£¬µ«ÊÇÒ²¿ÉÒÔµ÷´ó£¬Á÷Ê½µÄÎŞËùÎ½
+    public const int m_BufferSize = m_SampleRate * 60; //æœ€å¤§æ”¯æŒ60séŸ³é¢‘ï¼Œä½†æ˜¯ä¹Ÿå¯ä»¥è°ƒå¤§ï¼Œæµå¼çš„æ— æ‰€è°“
 
-    public const int m_UpdateSize = m_SampleRate / 10; //²ÉÑùÈİÁ¿£¬Ô½´óÔ½¿¨
+    public const int m_UpdateSize = m_SampleRate / 10; //é‡‡æ ·å®¹é‡ï¼Œè¶Šå¤§è¶Šå¡
 
     private Coroutine m_TTSCoroutine;
     private int m_DataIndex = 0;
@@ -38,10 +38,10 @@ public class AzureTTSStream : MonoSingleton<AzureTTSStream>
     }
 
     /// <summary>
-    /// ÄãµÄÊÚÈ¨
+    /// ä½ çš„æˆæƒ
     /// </summary>
-    /// <param name="subscriptionKey">×Ó½Å±¾µÄKey</param>
-    /// <param name="region">µØÇø</param>
+    /// <param name="subscriptionKey">å­è„šæœ¬çš„Key</param>
+    /// <param name="region">åœ°åŒº</param>
     public void SetAzureAuthorization(string subscriptionKey, string region)
     {
         m_SubscriptionKey = subscriptionKey;
@@ -49,10 +49,10 @@ public class AzureTTSStream : MonoSingleton<AzureTTSStream>
     }
 
     /// <summary>
-    /// ÉèÖÃÓïÒôºÍÉùÒô
+    /// è®¾ç½®è¯­éŸ³å’Œå£°éŸ³
     /// </summary>
-    /// <param name="language">ÓïÑÔ</param>
-    /// <param name="voiceName">ÉùÒô</param>
+    /// <param name="language">è¯­è¨€</param>
+    /// <param name="voiceName">å£°éŸ³</param>
     public void SetLanguageVoiceName(SpeechSynthesisLanguage language, SpeechSynthesisVoiceName voiceName)
     {
         m_SpeechSynthesisLanguage = language.ToString().Replace('_', '-');
@@ -60,7 +60,7 @@ public class AzureTTSStream : MonoSingleton<AzureTTSStream>
     }
 
     /// <summary>
-    /// ÉèÖÃÒôÔ´
+    /// è®¾ç½®éŸ³æº
     /// </summary>
     /// <param name="audioSource"></param>
     public void SetAudioSource(AudioSource audioSource)
@@ -69,7 +69,7 @@ public class AzureTTSStream : MonoSingleton<AzureTTSStream>
     }
 
     /// <summary>
-    /// ¿ªÊ¼TTS
+    /// å¼€å§‹TTS
     /// </summary>
     /// <param name="spkMsg"></param>
     /// <param name="errorAction"></param>
@@ -80,7 +80,7 @@ public class AzureTTSStream : MonoSingleton<AzureTTSStream>
     }
 
     /// <summary>
-    /// ¿ªÊ¼TTS
+    /// å¼€å§‹TTS
     /// </summary>
     /// <param name="spkMsg"></param>
     /// <param name="audioSource"></param>
@@ -92,11 +92,11 @@ public class AzureTTSStream : MonoSingleton<AzureTTSStream>
     }
 
     /// <summary>
-    /// ÔİÍ£TTS
+    /// æš‚åœTTS
     /// </summary>
     public void StopTTS()
     {
-        // ÊÍ·ÅÁ÷
+        // é‡Šæ”¾æµ
         if (m_AudioDataStream != null)
         {
             m_AudioDataStream.Dispose();
@@ -118,10 +118,10 @@ public class AzureTTSStream : MonoSingleton<AzureTTSStream>
     }
 
     /// <summary>
-    /// ·¢ÆğTTS
+    /// å‘èµ·TTS
     /// </summary>
-    /// <param name="speakMsg">TTSµÄÎÄ±¾</param>
-    /// <param name="errorAction">´íÎóÊÂ¼ş£¨Ä¿Ç°Ã»ÓĞºÃµÄÅĞ¶Ï·½·¨£©</param>
+    /// <param name="speakMsg">TTSçš„æ–‡æœ¬</param>
+    /// <param name="errorAction">é”™è¯¯äº‹ä»¶ï¼ˆç›®å‰æ²¡æœ‰å¥½çš„åˆ¤æ–­æ–¹æ³•ï¼‰</param>
     /// <returns></returns>
     private IEnumerator SynthesizeAudioCoroutine(string speakMsg, Action<string> errorAction)
     {
@@ -176,8 +176,8 @@ public class AzureTTSStream : MonoSingleton<AzureTTSStream>
 }
 
 /// <summary>
-/// Ìí¼Ó¸ü¶àµÄÆäËûÓïÑÔ
-/// ĞÎÊ½ÀàËÆÎª Zh_CN ¶ÔÓ¦ "zh-CN";
+/// æ·»åŠ æ›´å¤šçš„å…¶ä»–è¯­è¨€
+/// å½¢å¼ç±»ä¼¼ä¸º Zh_CN å¯¹åº” "zh-CN";
 /// </summary>
 public enum SpeechSynthesisLanguage
 {
@@ -185,8 +185,8 @@ public enum SpeechSynthesisLanguage
 }
 
 /// <summary>
-/// Ìí¼Ó¸ü¶àµÄÆäËûÉùÒô
-/// ĞÎÊ½ÀàËÆÎª Zh_CN_XiaochenNeural ¶ÔÓ¦ "zh-CN-XiaochenNeural";
+/// æ·»åŠ æ›´å¤šçš„å…¶ä»–å£°éŸ³
+/// å½¢å¼ç±»ä¼¼ä¸º Zh_CN_XiaochenNeural å¯¹åº” "zh-CN-XiaochenNeural";
 /// </summary>
 public enum SpeechSynthesisVoiceName
 {
