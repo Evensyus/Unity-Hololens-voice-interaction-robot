@@ -7,17 +7,17 @@ public class AzureTTSNormal : MonoSingleton<AzureTTSNormal>
 {
     private AudioSource m_AudioSource;
 
-    private string m_SubscriptionKey = "1c59566d77cd4462a7b3f73f66efd431";
-    private string m_Region = "eastus";
+    private string m_SubscriptionKey = "å¡«å†™ä½ è‡ªå·±çš„Key";
+    private string m_Region = "å¡«å†™ä½ è‡ªå·±çš„åœ°åŒº";
     private string m_SpeechSynthesisLanguage = "zh-CN";
     private string m_SpeechSynthesisVoiceName = "zh-CN-XiaochenNeural";
     private Coroutine m_TTSCoroutine;
 
     /// <summary>
-    /// ÄãµÄÊÚÈ¨
+    /// ä½ çš„æˆæƒ
     /// </summary>
-    /// <param name="subscriptionKey">×Ó½Å±¾µÄKey</param>
-    /// <param name="region">µØÇø</param>
+    /// <param name="subscriptionKey">å­è„šæœ¬çš„Key</param>
+    /// <param name="region">åœ°åŒº</param>
     public void SetAzureAuthorization(string subscriptionKey, string region)
     {
         m_SubscriptionKey = subscriptionKey;
@@ -25,10 +25,10 @@ public class AzureTTSNormal : MonoSingleton<AzureTTSNormal>
     }
 
     /// <summary>
-    /// ÉèÖÃÓïÒôºÍÉùÒô
+    /// è®¾ç½®è¯­éŸ³å’Œå£°éŸ³
     /// </summary>
-    /// <param name="language">ÓïÑÔ</param>
-    /// <param name="voiceName">ÉùÒô</param>
+    /// <param name="language">è¯­è¨€</param>
+    /// <param name="voiceName">å£°éŸ³</param>
     public void SetLanguageVoiceName(SpeechSynthesisLanguage language, SpeechSynthesisVoiceName voiceName)
     {
         m_SpeechSynthesisLanguage = language.ToString().Replace('_', '-');
@@ -36,7 +36,7 @@ public class AzureTTSNormal : MonoSingleton<AzureTTSNormal>
     }
 
     /// <summary>
-    /// ÉèÖÃÒôÔ´
+    /// è®¾ç½®éŸ³æº
     /// </summary>
     /// <param name="audioSource"></param>
     public void SetAudioSource(AudioSource audioSource)
@@ -45,7 +45,7 @@ public class AzureTTSNormal : MonoSingleton<AzureTTSNormal>
     }
 
     /// <summary>
-    /// ¿ªÊ¼TTS
+    /// å¼€å§‹TTS
     /// </summary>
     /// <param name="spkMsg"></param>
     /// <param name="errorAction"></param>
@@ -56,7 +56,7 @@ public class AzureTTSNormal : MonoSingleton<AzureTTSNormal>
     }
 
     /// <summary>
-    /// ¿ªÊ¼TTS
+    /// å¼€å§‹TTS
     /// </summary>
     /// <param name="spkMsg"></param>
     /// <param name="audioSource"></param>
@@ -68,7 +68,7 @@ public class AzureTTSNormal : MonoSingleton<AzureTTSNormal>
     }
 
     /// <summary>
-    /// ÔİÍ£TTS
+    /// æš‚åœTTS
     /// </summary>
     public void StopTTS()
     {
